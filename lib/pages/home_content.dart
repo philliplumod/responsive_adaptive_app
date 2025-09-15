@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_adaptive_app/widgets/example_card_row.dart';
 
 class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
@@ -17,6 +18,7 @@ class HomeContent extends StatelessWidget {
         ),
 
         const SizedBox(height: 20),
+        ExampleCardRow(),
       ],
     );
   }
