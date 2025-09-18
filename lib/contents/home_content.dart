@@ -7,6 +7,7 @@ class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textScale = MediaQuery.of(context).textScaler;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

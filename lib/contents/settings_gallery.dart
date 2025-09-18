@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dummy_page.dart';
+import 'package:responsive_adaptive_app/pages/dummy_page.dart';
 
 class SettingsContent extends StatelessWidget {
   const SettingsContent({super.key});

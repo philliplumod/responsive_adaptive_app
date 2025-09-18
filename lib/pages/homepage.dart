@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_adaptive_app/contents/gallery_content.dart';
+import 'package:responsive_adaptive_app/contents/home_content.dart';
+import 'package:responsive_adaptive_app/contents/settings_gallery.dart';
 import 'package:responsive_adaptive_app/model/destination.dart';
-import 'package:responsive_adaptive_app/pages/gallery_content.dart';
-import 'package:responsive_adaptive_app/pages/home_content.dart';
-import 'package:responsive_adaptive_app/pages/settings_content.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class Homepage extends StatefulWidget {
+  const Homepage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Homepage> createState() => _HomepageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomepageState extends State<Homepage> {
   int _selectedIndex = 0;
 
   final List<Destination> _destinations = [
@@ -24,54 +24,18 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
-  void _openResponsiveDialog() {
-    final width = MediaQuery.sizeOf(context).width;
-    if (width >= 800) {
-      showDialog(
-        context: context,
-        builder: (context) => Center(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 600),
-            child: AlertDialog(
-              title: Text('Responsive Dialog'),
-              content: Text('This dialog is constrained on large screens'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text('Closed'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    } else {
-      showGeneralDialog(
-        context: context,
-        pageBuilder: (context, a1, a2) => Padding(
-          padding: EdgeInsetsGeometry.all(16.0),
-          child: Text('This is a fullscreen dialog used for narrow windows'),
-        ),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
         final bool useRail = width >= 600;
-
-        return SafeArea(
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(
-                'Adaptive Demo ${_destinations[_selectedIndex].label}',
-              ),
-            ),
-
-            body: Row(
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Adaptive Demo ${_destinations[_selectedIndex].label}'),
+          ),
+          body: SafeArea(
+            child: Row(
               children: [
                 if (useRail)
                   NavigationRail(
@@ -96,21 +60,16 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            bottomNavigationBar: useRail
-                ? null
-                : NavigationBar(
-                    destinations: _destinations
-                        .map(
-                          (d) => NavigationDestination(
-                            icon: Icon(d.icon),
-                            label: d.label,
-                          ),
-                        )
-                        .toList(),
-                    selectedIndex: _selectedIndex,
-                    onDestinationSelected: (i) =>
-                        setState(() => _selectedIndex = i),
-                  ),
+          ),
+          bottomNavigationBar: NavigationBar(
+            destinations: _destinations
+                .map(
+                  (d) =>
+                      NavigationDestination(icon: Icon(d.icon), label: d.label),
+                )
+                .toList(),
+            selectedIndex: _selectedIndex,
+            onDestinationSelected: (i) => setState(() => _selectedIndex = i),
           ),
         );
       },
