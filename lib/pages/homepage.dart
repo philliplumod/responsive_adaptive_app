@@ -3,6 +3,8 @@ import 'package:responsive_adaptive_app/contents/gallery_content.dart';
 import 'package:responsive_adaptive_app/contents/home_content.dart';
 import 'package:responsive_adaptive_app/contents/settings_content.dart';
 import 'package:responsive_adaptive_app/model/destination.dart';
+import 'package:responsive_adaptive_app/model/todo_card.dart';
+import 'package:responsive_adaptive_app/pages/form_page.dart';
 
 class Homepage extends StatefulWidget {
   final void Function(bool) onThemeToggle;
@@ -20,11 +22,26 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   int _selectedIndex = 0;
+  final List<Todo> _todos = [];
 
-  final List<Destination> _destinations = [
-    Destination(icon: Icons.home, label: 'Home', content: HomeContent()),
+  void _addTodo(Todo todo) {
+    setState(() {
+      _todos.add(todo);
+    });
+  }
+
+  List<Destination> get _destinations => [
+    Destination(
+      icon: Icons.home,
+      label: 'Home',
+      content: HomeContent(todos: _todos),
+    ),
     Destination(icon: Icons.image, label: 'Gallery', content: GalleryContent()),
-    Destination(icon: Icons.settings, label: 'Settings', content: SettingContent()),
+    Destination(
+      icon: Icons.settings,
+      label: 'Settings',
+      content: SettingContent(),
+    ),
   ];
 
   @override
@@ -39,9 +56,10 @@ class _HomepageState extends State<Homepage> {
             title: Text('Adaptive Demo ${_destinations[_selectedIndex].label}'),
             actions: [
               IconButton(
-                onPressed: () =>
-                    widget.onThemeToggle(!widget.isDarkMode),
-                icon: Icon(widget.isDarkMode ? Icons.light_mode : Icons.dark_mode),
+                onPressed: () => widget.onThemeToggle(!widget.isDarkMode),
+                icon: Icon(
+                  widget.isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                ),
               ),
             ],
           ),
@@ -87,6 +105,17 @@ class _HomepageState extends State<Homepage> {
                   onDestinationSelected: (i) =>
                       setState(() => _selectedIndex = i),
                 ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FormPage(onTodoCreated: _addTodo),
+                ),
+              );
+            },
+            child: Icon(Icons.add),
+          ),
         );
       },
     );

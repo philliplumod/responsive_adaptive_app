@@ -30,15 +30,10 @@ class _MyAppState extends State<MyApp> {
         onThemeToggle: toggleTheme,
         isDarkMode: _themeMode == ThemeMode.dark,
       ),
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: const Color.fromRGBO(86, 80, 14, 171),
-        textTheme: lightTextTheme,
-      ),
+      theme: ThemeData(useMaterial3: true, textTheme: lightTextTheme),
       darkTheme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
-        colorSchemeSeed: const Color.fromARGB(86, 80, 14, 171),
         textTheme: darkTextTheme,
       ),
       themeMode: _themeMode,
