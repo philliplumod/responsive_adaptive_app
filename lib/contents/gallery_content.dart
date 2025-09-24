@@ -23,13 +23,13 @@ class GalleryContent extends StatelessWidget {
             ),
             itemCount: 50,
             itemBuilder: (context, index) => GridTile(
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.grey.shade200,
+              child: Card(
+                child: Center(
+                  child: Text(
+                    'Item ${index + 1}',
+                    style: Theme.of(context).textTheme.bodySmall!,
+                  ),
                 ),
-                child: Text('Item ${index + 1}'),
               ),
             ),
           ),

@@ -7,7 +7,7 @@ class ExampleCardRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isWide = constraints.maxWidth > 500;
+        final isWide = constraints.maxWidth >= 600;
         return Row(
           children: [
             Expanded(

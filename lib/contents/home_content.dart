@@ -11,13 +11,17 @@ class HomeContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Welcome', style: Theme.of(context).textTheme.headlineSmall),
+        Text(
+          'Welcome',
+          style: Theme.of(context).textTheme.titleLarge!,
+          textScaler: textScale,
+        ),
         const SizedBox(height: 8),
         Text(
           'This sample demonstrates responsive vs adaptive design.',
+          style: Theme.of(context).textTheme.bodyMedium!,
           textScaler: textScale,
         ),
-
         const SizedBox(height: 20),
         ExampleCardRow(),
       ],
